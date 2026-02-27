@@ -13,4 +13,4 @@
 
 # Gereksinim Dağılımları
 
-1. [Eylem Gökçe'nin Gereksinimleri](Ali-Tutar/Ali-Tutar-Gereksinimler.md)
+1. [Eylem Gökçe'nin Gereksinimleri](Eylem-Gökçe/Eylem-Gokce-Gereksinimler.md)
