@@ -5,28 +5,38 @@
 ## 1. Giriş Yapma
 
 - **Endpoint:** `POST /auth/login`
-- **Request Body:** ```json
+- **Request Body:**
+
+  ```json
   {
-  "email": "ornek@email.com",
-  "password": "123456"
+    "email": "ornek@email.com",
+    "password": "123456"
   }
   ```
 
   ```
+
+  ```
+
 - **Response:** `200 OK` - Başarılı giriş. Token ve kullanıcı bilgileri döner.
 
 ## 2. Üye Olma
 
 - **Endpoint:** `POST /auth/register`
-- **Request Body:** ```json
+- **Request Body:**
+
+  ```json
   {
-  "name": "Ahmet Yılmaz",
-  "email": "ornek@email.com",
-  "password": "123456"
+    "name": "Ahmet Yılmaz",
+    "email": "ornek@email.com",
+    "password": "123456"
   }
   ```
 
   ```
+
+  ```
+
 - **Response:** `201 Created` - Kullanıcı hesabı başarıyla oluşturuldu.
 
 ## 3. Kitap Detay Görüntüleme
@@ -47,15 +57,20 @@
 
 - **Endpoint:** `PUT /books/{id}`
 - **Path Parameters:** - `id` (string, required) - Kitabın benzersiz kimlik numarası
-- **Request Body:** ```json
+- **Request Body:**
+
+  ```json
   {
-  "title": "1984",
-  "author": "George Orwell",
-  "description": "Distopik bir roman."
+    "title": "1984",
+    "author": "George Orwell",
+    "description": "Distopik bir roman."
   }
   ```
 
   ```
+
+  ```
+
 - **Authentication:** Bearer Token gerekli
 - **Response:** `200 OK` - Kitap bilgileri başarıyla güncellendi.
 
@@ -70,14 +85,19 @@
 
 - **Endpoint:** `PUT /users/{id}`
 - **Path Parameters:** - `id` (string, required) - Kullanıcının benzersiz kimlik numarası
-- **Request Body:** ```json
+- **Request Body:**
+
+  ```json
   {
-  "name": "Ahmet Yılmaz",
-  "bio": "Bilim kurgu okuru."
+    "name": "Ahmet Yılmaz",
+    "bio": "Bilim kurgu okuru."
   }
   ```
 
   ```
+
+  ```
+
 - **Authentication:** Bearer Token gerekli
 - **Response:** `200 OK` - Kullanıcının profil bilgileri başarıyla güncellendi.
 
@@ -85,14 +105,19 @@
 
 - **Endpoint:** `POST /books/{id}/comments`
 - **Path Parameters:** - `id` (string, required) - Yorum yapılacak kitabın kimlik numarası
-- **Request Body:** ```json
+- **Request Body:**
+
+  ```json
   {
-  "text": "Çok etkileyici bir kitap, kesinlikle tavsiye ederim.",
-  "rating": 5
+    "text": "Çok etkileyici bir kitap, kesinlikle tavsiye ederim.",
+    "rating": 5
   }
   ```
 
   ```
+
+  ```
+
 - **Authentication:** Bearer Token gerekli
 - **Response:** `201 Created` - Kullanıcının yorumu başarıyla eklendi.
 
