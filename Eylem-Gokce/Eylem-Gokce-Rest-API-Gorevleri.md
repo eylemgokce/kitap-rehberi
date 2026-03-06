@@ -1,6 +1,6 @@
 # Eylem Gökçe'nin REST API Metotları
 
-**API Test Videosu:** [Link buraya eklenecek](https://example.com)
+**API Test Videosu:** [Kitap Rehberi API Design Schema](https://youtu.be/yA8lOcIBjAk)
 
 ## 1. Giriş Yapma
 
@@ -12,10 +12,6 @@
     "email": "ornek@email.com",
     "password": "123456"
   }
-  ```
-
-  ```
-
   ```
 
 - **Response:** `200 OK` - Başarılı giriş. Token ve kullanıcı bilgileri döner.
@@ -31,10 +27,6 @@
     "email": "ornek@email.com",
     "password": "123456"
   }
-  ```
-
-  ```
-
   ```
 
 - **Response:** `201 Created` - Kullanıcı hesabı başarıyla oluşturuldu.
@@ -67,10 +59,6 @@
   }
   ```
 
-  ```
-
-  ```
-
 - **Authentication:** Bearer Token gerekli
 - **Response:** `200 OK` - Kitap bilgileri başarıyla güncellendi.
 
@@ -94,10 +82,6 @@
   }
   ```
 
-  ```
-
-  ```
-
 - **Authentication:** Bearer Token gerekli
 - **Response:** `200 OK` - Kullanıcının profil bilgileri başarıyla güncellendi.
 
@@ -112,10 +96,6 @@
     "text": "Çok etkileyici bir kitap, kesinlikle tavsiye ederim.",
     "rating": 5
   }
-  ```
-
-  ```
-
   ```
 
 - **Authentication:** Bearer Token gerekli
