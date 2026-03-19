@@ -4,7 +4,7 @@
 
 # 📚 Kitap Rehberi (Book Guide) - Full-Stack App
 
-## **Front-End Test Videosu:** [Front-End Test Video](https://youtu.be/yA8lOcIBjAk)
+## **Front-End Test Videosu:** [Front-End Test Video](https://youtu.be/MZjgJtRfeFE)
 
 Bu proje, kullanıcıların kitapları keşfedebildiği, inceleyip yorum yapabildiği, favorilerine ekleyebildiği ve kendi profillerini yönetebildiği kapsamlı bir web uygulamasıdır.
 

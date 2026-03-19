@@ -1,7 +1,8 @@
 # REST API Görev Dağılımı
 
-**REST API Adresi:** [api.kitap-rehberi.com](https://api.kitap-rehberi.com)
+**REST API Adresi:** [https://kitap-rehberi-api.onrender.com/](https://kitap-rehberi-api.onrender.com/)
 
+**Rest API Books JSON:** [Apide kayıtlı kitaplar](https://kitap-rehberi-api.onrender.com/books)
 Bu dokümanda, proje ekibindeki her üyenin geliştirmekten sorumlu olduğu REST API metotları listelenmektedir.
 
 ---
