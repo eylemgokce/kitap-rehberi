@@ -18,8 +18,8 @@
 
 ## Proje Linkleri
 
-- **REST API Adresi:** [api.kitap-rehberi.com](https://api.kitap-rehberi.com)
-- **Web Frontend Adresi:** [frontend.kitap-rehberi.com](https://frontend.kitap-rehberi.com)
+- **REST API Adresi:** [kitap-rehber-api.onrender.com](https://kitap-rehberi-api.onrender.com/)
+- **Web Frontend Adresi:** [kitap-rehberim.netlify.app](https://kitap-rehberim.netlify.app/)
 
 ---
 
