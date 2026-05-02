@@ -4,16 +4,17 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // DİKKAT: Aşağıdaki URL'yi kendi GitHub projenin linkiyle DEĞİŞTİR!
-                // Eğer ana dalının adı 'main' değil de 'master' ise onu da değiştirmeyi unutma.
                 git branch: 'main', url: 'https://github.com/eylemgokce/kitap-rehberi.git'
             }
         }
 
         stage('Build and Deploy') {
             steps {
-                sh 'docker compose down'
-                sh 'docker compose up -d --build'
+                // Jenkins'e önce klasörün içine girmesini söylüyoruz
+                dir('Kitap Rehberi') {
+                    sh 'docker compose down'
+                    sh 'docker compose up -d --build'
+                }
             }
         }
 
@@ -21,7 +22,6 @@ pipeline {
             steps {
                 script {
                     sleep 15
-                    // Frontend sitemiz 5173 portunda çalıştığı için 3000 yerine 5173'ü kontrol ediyoruz
                     sh 'curl -f http://localhost:5173 || echo "Frontend henuz hazir degil"'
                 }
             }
