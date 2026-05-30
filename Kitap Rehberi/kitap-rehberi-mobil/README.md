@@ -1,50 +1,60 @@
-# Welcome to your Expo app 👋
+# 📚 Kitap Rehberi - Mobil Uygulama
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Bu proje, "Kitap Rehberi" platformunun React Native ve Expo Router kullanılarak geliştirilmiş mobil arayüzüdür. Web projesiyle tam senkronize çalışan bu uygulama, kullanıcıların kitapları keşfetmesini, favorilerine eklemesini, puanlayıp yorum yapmasını ve profillerini yönetmesini sağlar.
 
-## Get started
+## ✨ Öne Çıkan Özellikler
 
-1. Install dependencies
+- **Güvenli Kimlik Doğrulama (JWT):** REST API üzerinden alınan token, cihazın güvenli hafızasında (`AsyncStorage`) saklanır.
+- **Dinamik Kitap Keşfi:** Ana sayfada anlık çalışan arama ve filtreleme (yazar/kitap adı) algoritması.
+- **Detaylı İnceleme ve Etkileşim:**
+  - Kitap detaylarını görüntüleme.
+  - 5 yıldızlı derecelendirme sistemi ile yorum yapma.
+  - Sadece kendi yorumlarını silebilme yetkisi.
+  - Tek tıkla favorilere ekleme/çıkarma.
+- **Profil Yönetimi:** Kullanıcı bilgilerini görüntüleme, biyografi (bio) güncelleme ve favori kitapları tek ekranda listeleme.
+- **Modern Navigasyon:** Expo Router ile dosya tabanlı (file-based) sayfa yönlendirmeleri ve akıcı geçişler.
+
+## 🛠️ Kullanılan Teknolojiler
+
+- **Framework:** React Native / Expo (SDK 54)
+- **Navigasyon:** Expo Router
+- **HTTP İstemcisi:** Axios
+- **Yerel Depolama:** @react-native-async-storage/async-storage
+- **İkonlar:** @expo/vector-icons (Ionicons)
+- **Backend Bağlantısı:** Node.js / Express.js REST API (Render üzerinde canlıda)
+
+## 🚀 Kurulum ve Çalıştırma
+
+Projeyi kendi bilgisayarınızda çalıştırmak için aşağıdaki adımları izleyin:
+
+1. **Repoyu Klonlayın:**
+
+   ```bash
+   git clone <repo-url>
+   cd kitap-rehberi-mobil
+   ```
+
+2. **Gerekli Paketleri Yükleyin:**
 
    ```bash
    npm install
    ```
 
-2. Start the app
+3. **Uygulamayı Başlatın:**
 
    ```bash
-   npx expo start
+   npx expo start -c
    ```
 
-In the output, you'll find options to open the app in a
+4. **Telefonda Test Edin:**
+   - Cihazınıza **Expo Go** uygulamasını indirin.
+   - Terminalde çıkan QR kodu telefonunuzun kamerası (veya Expo Go uygulaması) ile okutarak projeyi anında canlı olarak görüntüleyin.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## 🔗 API Entegrasyonu
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+Uygulama, bulut üzerinde (Render) çalışan merkezi Kitap Rehberi API'sine bağlıdır. İstekler `https://kitap-rehberi-api.onrender.com` adresi üzerinden JWT `Bearer Token` ile yetkilendirilerek atılır. Web ve Mobil platformlar aynı veritabanını paylaştığı için yapılan değişiklikler anında iki platforma da yansır.
 
-## Get a fresh project
+---
 
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+**Geliştirici:** Eylem Gökçe  
+_Süleyman Demirel Üniversitesi - Bilgisayar Mühendisliği_
