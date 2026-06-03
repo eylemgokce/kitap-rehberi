@@ -1,7 +1,7 @@
 const redis = require("redis");
 
 // Docker lokal bağlantı URL'i
-const REDIS_URL = "redis://127.0.0.1:6379";
+const REDIS_URL = process.env.REDIS_URL || "redis://kitap-redis:6379";
 
 const redisClient = redis.createClient({
   url: REDIS_URL,

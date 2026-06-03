@@ -1,6 +1,6 @@
 const amqp = require("amqplib");
 
-const RABBITMQ_URL = "amqp://127.0.0.1:5672";
+const RABBITMQ_URL = process.env.RABBITMQ_URL || "amqp://kitap-rabbitmq:5672";
 let channel = null;
 
 async function connectRabbitMQ() {
