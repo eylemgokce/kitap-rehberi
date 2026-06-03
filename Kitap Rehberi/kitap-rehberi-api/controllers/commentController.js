@@ -1,4 +1,5 @@
 const Comment = require("../models/Comment");
+const { publishToQueue } = require("./rabbitmqService"); // 🌟 RabbitMQ servisini projemize dahil ettik
 
 // 1. Bir Kitaba Yorum Ekle (POST)
 const addComment = async (req, res) => {
@@ -7,12 +8,31 @@ const addComment = async (req, res) => {
     const { text, rating } = req.body;
     const userId = req.user.id;
 
+    // Yorumu MongoDB'ye kaydediyoruz
     const newComment = await Comment.create({
       userId,
       bookId,
       text,
       rating,
     });
+
+    // 🌟 RABBITMQ ENTEGRASYONU: Ağır arka plan işlerini kuyruğa atıyoruz
+    // Ana akışı bozmaması için kendi try-catch bloğu içine aldık
+    try {
+      await publishToQueue("comment_queue", {
+        action: "NEW_COMMENT_NOTIFICATION",
+        commentId: newComment._id,
+        bookId: bookId,
+        userId: userId,
+        text: text,
+        timestamp: new Date(),
+      });
+    } catch (queueError) {
+      console.error(
+        "RabbitMQ kuyruğuna mesaj gönderilemedi, ancak yorum eklendi:",
+        queueError,
+      );
+    }
 
     res.status(201).json(newComment);
   } catch (error) {
@@ -33,7 +53,7 @@ const getBookComments = async (req, res) => {
   }
 };
 
-// 3. Yorum Silme (DELETE) - HATA BURADAYDI, FONKSİYONUN BAŞINI KONTROL ET
+// 3. Yorum Silme (DELETE)
 const deleteComment = async (req, res) => {
   try {
     const comment = await Comment.findById(req.params.commentId);

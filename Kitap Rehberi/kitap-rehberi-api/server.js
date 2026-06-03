@@ -3,6 +3,9 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 
+require("./redisService");
+require("./rabbitmqService");
+
 // Rotaları içeri aktar
 const authRoutes = require("./routes/authRoutes");
 const bookRoutes = require("./routes/bookRoutes");
