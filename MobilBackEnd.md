@@ -1,54 +1,51 @@
-# Mobil Backend (REST API Bağlantısı) Görev Dağılımı
+# Kitap Rehberi - Mobil Backend (REST API Entegrasyonu) Prensipleri
 
-**REST API Adresi:** [api.yazmuh.com](https://api.yazmuh.com)
+**Canlı REST API Adresi:** [https://kitap-rehberi-api.onrender.com](https://kitap-rehberi-api.onrender.com)
 
-Bu dokümanda, mobil uygulamanın REST API ile iletişimini sağlayan backend entegrasyon görevleri listelenmektedir. Her grup üyesi, kendisine atanan API endpoint'lerinin mobil uygulamadan çağrılması ve yönetilmesinden sorumludur.
+Bu dokümanda, Kitap Rehberi mobil uygulamasının (React Native) Node.js tabanlı REST API ile olan iletişimini sağlayan entegrasyon ve veri yönetimi standartları listelenmektedir. Proje tek bir Full-Stack geliştirici tarafından yürütüldüğü için, API'nin geliştirilmesi ve mobil taraftan çağrılması tek bir mimari çatıda toplanmış ve optimize edilmiştir.
 
 ---
 
-## Grup Üyelerinin Mobil Backend Görevleri
+## Geliştirici Görev Dağılımı
 
-1. [Ali Tutar'ın Mobil Backend Görevleri](Ali-Tutar/Ali-Tutar-Mobil-Backend-Gorevleri.md)
-2. [Grup Üyesi 2'nin Mobil Backend Görevleri](Grup-Uyesi-2/Grup-Uyesi-2-Mobil-Backend-Gorevleri.md)
-3. [Grup Üyesi 3'ün Mobil Backend Görevleri](Grup-Uyesi-3/Grup-Uyesi-3-Mobil-Backend-Gorevleri.md)
-4. [Grup Üyesi 4'ün Mobil Backend Görevleri](Grup-Uyesi-4/Grup-Uyesi-4-Mobil-Backend-Gorevleri.md)
-5. [Grup Üyesi 5'in Mobil Backend Görevleri](Grup-Uyesi-5/Grup-Uyesi-5-Mobil-Backend-Gorevleri.md)
-6. [Grup Üyesi 6'nın Mobil Backend Görevleri](Grup-Uyesi-6/Grup-Uyesi-6-Mobil-Backend-Gorevleri.md)
+Mobil uygulamanın backend ile haberleşme süreçleri, API uç noktalarının (endpoints) mobil arayüze bağlanması ve veri akışının yönetimi tek kişi tarafından yürütülmektedir. Görev detaylarına aşağıdaki dokümandan ulaşılabilir:
+
+1. [Eylem Gökçe'nin Mobil Backend Görevleri](Eylem-Gokce/Eylem-Gokce-Mobil-Backend-Gorevleri.md)
 
 ---
 
 ## Genel Mobil Backend Prensipleri
 
-### 1. HTTP Client Yapılandırması
-- **Base URL:** `https://api.yazmuh.com/v1`
-- **Timeout:** Request timeout 30 saniye, connect timeout 10 saniye
-- **Headers:** 
-  - `Content-Type: application/json`
-  - `Authorization: Bearer {token}` (gerekli endpoint'lerde)
+### 1. HTTP Client (Axios) Yapılandırması
 
-### 2. Authentication Yönetimi
-- JWT token'ları secure storage'da saklama
-- Token refresh mekanizması implementasyonu
-- Otomatik token yenileme (401 durumunda)
-- Logout durumunda token temizleme
+- **Kütüphane:** Proje genelinde API istekleri için `axios` kullanılmıştır.
+- **Dinamik Base URL:** Çevre değişkenleri (`.env`) kullanılarak `EXPO_PUBLIC_API_URL` üzerinden dinamik adresleme yapılır. (Geliştirme ortamında Docker LAN IP'si, production'da Render canlı adresi kullanılır).
+- **Headers:** - Veri gönderimlerinde `Content-Type: application/json` standarttır.
+  - Yetki gerektiren uç noktalarda (Örn: Profil, Favoriler) `Authorization: Bearer {token}` formatında gönderim yapılır.
 
-### 3. Error Handling
-- Network hataları (timeout, connection error)
-- HTTP status kodlarına göre uygun mesajlar gösterme
-- Retry mekanizması (network hatalarında)
-- Offline durum yönetimi
+### 2. Kimlik Doğrulama (Auth) Yönetimi
 
-### 4. Caching Stratejisi
-- GET istekleri için response caching
-- Cache invalidation (PUT/DELETE sonrası)
-- Offline-first yaklaşımı (mümkün olduğunda)
+- **Güvenli Depolama:** Giriş sonrası API'den dönen JWT (JSON Web Token), React Native `AsyncStorage` üzerinde saklanarak cihazda kalıcı oturum sağlanır.
+- **Oturum Kontrolü (Guard):** Uygulama açılışında veya yetki gerektiren sayfalara geçişte token varlığı kontrol edilerek gereksiz API istekleri (boş network trafiği) önlenir.
+- **Çıkış İşlemi (Logout):** Çıkış anında `AsyncStorage` içerisindeki token temizlenerek güvenlik sağlanır ve yerel state sıfırlanır.
 
-### 5. Loading States
-- Request başlangıcında loading indicator
-- Başarılı/başarısız durum bildirimleri
-- Optimistic updates (kullanıcı deneyimi için)
+### 3. Hata Yönetimi (Error Handling)
 
-### 6. Logging ve Debugging
-- API request/response logging (development modunda)
-- Error logging ve crash reporting
-- Network interceptor kullanımı
+- **Güvenli İstekler:** Tüm Axios istekleri `try/catch` blokları ile sarmalanarak asenkron hataların uygulamanın çökmesine (crash) yol açması engellenir.
+- **Dinamik Hata Mesajları:** Backend tarafından gönderilen özel hata mesajları (`error.response.data.message`), ayrıştırılarak son kullanıcıya `Alert` veya UI uyarıları aracılığıyla gösterilir (Örn: "Bu e-posta zaten kullanımda").
+- 401 (Unauthorized) gibi token hatalarında kullanıcının giriş sayfasına yönlendirilmesi sağlanır.
+
+### 4. Yükleme Durumları (Loading States)
+
+- Her API isteği (GET, POST vb.) başlamadan önce yerel `loading` state'i aktifleştirilir ve ekranda `ActivityIndicator` gösterilir.
+- İstek başarılı da olsa, hata da verse `finally` bloğu kullanılarak yükleme animasyonu mutlaka sonlandırılır.
+
+### 5. Performans ve Optimizasyon
+
+- **Optimistic Updates:** Profil "Hakkımda" kısmının güncellenmesi gibi işlemlerde, kullanıcının beklemesini önlemek adına API'den "200 OK" yanıtı gelmeden/beklenmeden UI anında güncellenir.
+- **CORS ve Ağ İzolasyonu Aşımı:** Geliştirme aşamasında Expo Go'nun (mobil cihazın) Docker içindeki API ile haberleşebilmesi için özel LAN yönlendirmeleri (`--lan` parametresi ve IP adresi ayarları) kullanılır.
+
+### 6. Geliştirme Ortamı ve Hata Ayıklama (Debugging)
+
+- Geliştirme sürecinde isteklerin ve hataların takibi için terminal (Expo CLI) üzerinden `console.log()` ile API yanıtları denetlenir.
+- Geliştirme ortamında API kesintilerini test etmek için `timeout` parametreleri göz önünde bulundurulur.
