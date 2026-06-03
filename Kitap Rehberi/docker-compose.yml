@@ -3,7 +3,7 @@ version: "3.8"
 services:
   backend-api:
     build: ./kitap-rehberi-api
-    container_name: kitap_backend
+    container_name: kitap-rehberi-api
     ports:
       - "5000:5000"
     # Eğer backend'de .env dosyan varsa Docker'ın da okuması için:
@@ -12,8 +12,21 @@ services:
 
   frontend-web:
     build: ./frontend
-    container_name: kitap_frontend
+    container_name: frontend
     ports:
       - "5173:5173"
     depends_on:
       - backend-api
+
+  kitap-rehberi-mobil:
+    build:
+      context: ./kitap-rehberi-mobil
+    container_name: kitap-rehberi-mobil
+    ports:
+      - "8081:8081"
+    environment:
+      - EXPO_USE_DEV_SERVER=true
+      - REACT_NATIVE_PACKAGER_HOSTNAME=192.168.43.82
+    volumes:
+      - ./kitap-rehberi-mobil:/app
+      - /app/node_modules

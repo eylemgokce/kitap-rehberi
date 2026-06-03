@@ -28,20 +28,33 @@ export default function HomeScreen() {
   const fetchBooks = async () => {
     try {
       const token = await AsyncStorage.getItem("userToken");
-      if (!token) return;
 
-      const response = await axios.get(
-        "https://kitap-rehberi-api.onrender.com/books",
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        },
-      );
+      // 1. TUZAK ÇÖZÜMÜ: Token yoksa sessizce durma, bizi uyar!
+      if (!token) {
+        Alert.alert(
+          "Oturum Hatası",
+          "Giriş yapılmamış (Token eksik). Lütfen giriş sayfasına dönün.",
+        );
+        setLoading(false);
+        return;
+      }
+
+      // 2. DİNAMİK URL: Docker'dan (.env) gelen adresi kullanıyoruz
+      const API_URL =
+        process.env.EXPO_PUBLIC_API_URL ||
+        "https://kitap-rehberi-api.onrender.com";
+
+      const response = await axios.get(`${API_URL}/books`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
       setBooks(response.data);
-      setFilteredBooks(response.data); // İlk başta tüm kitapları göster
-    } catch (error) {
-      console.log("Kitap çekme hatası:", error);
-      Alert.alert("Bağlantı Hatası", "Kitaplar yüklenirken bir sorun oluştu.");
+      setFilteredBooks(response.data);
+    } catch (error: any) {
+      // 3. GERÇEK HATAYI YAKALAMA
+      const errorMsg = error.response?.data?.message || error.message;
+      console.log("TAM HATA:", error);
+      Alert.alert("Bağlantı Hatası", `Kitaplar çekilemedi: ${errorMsg}`);
     } finally {
       setLoading(false);
     }
