@@ -1,5 +1,5 @@
 const Comment = require("../models/Comment");
-const { publishToQueue } = require("./rabbitmqService"); // 🌟 RabbitMQ servisini projemize dahil ettik
+const { publishToQueue } = require("../rabbitmqService"); // 🌟 RabbitMQ servisini projemize dahil ettik
 
 // 1. Bir Kitaba Yorum Ekle (POST)
 const addComment = async (req, res) => {
