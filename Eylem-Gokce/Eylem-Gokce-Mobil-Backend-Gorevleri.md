@@ -1,6 +1,6 @@
 # Eylem Gökçe Mobil Backend (API & Entegrasyon) Görevleri
 
-**Mobil Front-end ile Back-end Bağlanmış Test Videosu:** [Link buraya eklenecek]
+**Mobil Front-end ile Back-end Bağlanmış Test Videosu:** [[Mobil FrontEnd & BackEnd](https://youtu.be/pHPZc6V0-oc)]
 
 ## 1. Güvenli Kimlik Doğrulama (Auth) Servisleri
 

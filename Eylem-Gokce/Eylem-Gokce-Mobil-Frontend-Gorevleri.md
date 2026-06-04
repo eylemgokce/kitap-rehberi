@@ -1,6 +1,6 @@
 # Eylem Gökçe Mobil Frontend Görevleri
 
-**Mobile Front-end Demo Videosu:** [Link Buraya Eklenecek]
+**Mobile Front-end Demo Videosu:** [[Mobil Front-End](https://youtu.be/GQLdlawY7D8)]
 
 ---
 
